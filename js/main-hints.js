@@ -13,28 +13,28 @@ const trElementTemplate = `
 	<td><span class="badge badge-primary">Новая</span></td>
 	<td><span class="badge badge-secondary">Нет оплаты</span></td>
 </tr>`
-
+ 
 main()
 
 function main () {
 	const url = 'http://89.108.64.67:3000'
 	const key = '?key=adjf989f89981045789sdf'
-	const address = '/orders'
+	const address = '/reinit'
 
-	const newOrder = JSON.stringify({
+/**	const newOrder = JSON.stringify({
 		good: "Микроволновка",
 		price: 10000,
 		clientName: "Дмитрий",
 		managerName: "Анастасия",
 		paymentStatus: 0,
 		requestStatus: 0
-	})
+	}) */
 
 	fetch(url + address + key, {
-		method: 'GET',
+		method: 'POST',
 		// body: newOrder
 	})
-		.then(answer => answer.json())
+/**		.then(answer => answer.json())
 		.then(data => {
 			const rootDir = document.getElementById('listViewer')
 
@@ -49,7 +49,7 @@ function main () {
 
 				rootDir.append(tbodyElement.firstElementChild)
 			}
-		})
+		})  */
 }
 
 // Получить все заказы

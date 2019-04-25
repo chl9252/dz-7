@@ -10,8 +10,8 @@
 		</span>
 	</td>
 	<td>%PRICE%</td>
-	<td><span class="badge badge-primary">%REQUESTSTATUS%</span></td>
-	<td><span class="badge badge-secondary">%PAYMENTSTATUS%</span></td>
+	<td><span class="badge %CLASSSTAT%">%REQUESTSTATUS%</span></td>
+	<td><span class="badge %CLASSPAY%">%PAYMENTSTATUS%</span></td>
 </tr>` 
 
 main() 
@@ -21,14 +21,6 @@ function main () {
 	const key = '?key=adjf989f89981045789sdf'
 	const address = '/orders'
 
-/**	const newOrder = JSON.stringify({
-		good: "Микроволновка",
-		price: 10000,
-		clientName: "Дмитрий",
-		managerName: "Анастасия",
-		paymentStatus: 0,
-		requestStatus: 0
-	}) */
 
 	fetch(url + address + key, {
 		method: 'GET',
@@ -37,54 +29,67 @@ function main () {
 		.then(answer => answer.json())
 		.then(data => {
 			const rootDir = document.getElementById('listViewer')
-console.log({data})
+  //console.log({data})
 
-			for (const item of data) {
-				const tbodyElement = document.createElement('tbody')
+	for (const item of data) {
+		const tbodyElement = document.createElement('tbody')
 
-		let paymentStatusText = ''
-
+	let paymentStatusText = ''
+	let classText = ''
+	let classTextPay = ''
 	switch(item.paymentStatus) {
 		case "1":
 		paymentStatusText = 'Не оплачено'
+		classTextPay = 'badge-secondary'
 		break
 		case "3":
 		paymentStatusText = 'Частичная оплата'
+		classTextPay = 'badge-warning'
 		break
 		case "4":
 		paymentStatusText = 'Полная оплата'
+		classTextPay = 'badge-success'
 		break
 		case "5":
 		paymentStatusText = 'Возврат'
+		classTextPay = 'badge-dark'
 		break
 
 		default:
 		paymentStatusText = 'Не оплачено'
+		classTextPay = 'badge-secondary'
 
 	}
 
-		let requestStatusText = ''
-		switch(item.requestStatus) {
+	let requestStatusText = ''
+	switch(item.requestStatus) {
 		case "1":
 		requestStatusText = 'Новая'
+		classText = 'badge-primary'
 		break
 		case "2":
 		requestStatusText = 'В работе'
+		classText = 'badge-light'
 		break
 		case "3":
 		requestStatusText = 'Ожидается оплата'
+		classText = 'badge-warning'
 		break
 		case "4":
 		requestStatusText = 'Завершена'
+		classText = 'badge-success'
 		break
 		case "5":
 		requestStatusText = 'Отказ'
+		classText = 'badge-secondary'
 		break
 
 		default:
 		requestStatusText = 'Новая'
+		classText = 'badge-primary'
 
 	}
+
 
 	
 
@@ -98,6 +103,9 @@ console.log({data})
 					.replace('%CLIENT_NAME%', item.clientName)
 					.replace('%REQUESTSTATUS%', requestStatusText)
 					.replace('%PAYMENTSTATUS%', paymentStatusText)
+					.replace('%CLASSSTAT%', classText)
+					.replace('%CLASSPAY%', classTextPay)
+					
 
 				rootDir.append(tbodyElement.firstElementChild)
 			}

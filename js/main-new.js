@@ -24,9 +24,12 @@ function main () {
 		document.querySelector('button').addEventListener('click', function() {
 
 	const input = document.forms.firstForm.elements
-console.log(input)
+ //console.log(input)
 
-    let priceCop = input[2].value.replace('.', '')	
+        let priceCop = input[2].value.replace('.', '')	
+    if(priceCop === input[2].value) {
+    	priceCop +='00'
+    }
 
 	let goodText = ''
 	switch(input[1].value) {
@@ -66,22 +69,22 @@ console.log(input)
 	
 	}) 
 
-	console.log(newOrder)
+	// console.log(newOrder)
 
 	const address = `/order`
-	console.log(address)
+//	console.log(address)
 		fetch(url + address + key, {
 		method: 'POST',
 		body: newOrder
 	})
 		.then(answer => answer.json())
 		.then(data => {
-//			const rootDir = document.getElementsByClassName('card-body')
-			console.log(data)
+
+	//	console.log(data)
 
 		})
 
-		})
+	})
 
 
 }

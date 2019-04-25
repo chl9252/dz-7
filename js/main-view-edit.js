@@ -88,46 +88,36 @@ main()
 function main () {
 	const url = 'http://89.108.64.67:3000'
 	const key = '?key=adjf989f89981045789sdf'
-let urlget = window.location.search
-let urlget2 = urlget.search('=') + 1
-urlget = urlget.slice(urlget2)
-console.log(window)
-console.log(urlget)
+	let urlget = window.location.search
+	let urlget2 = urlget.search('=') + 1
+	urlget = urlget.slice(urlget2)
+
+// console.log(urlget)
 	const address = `/order/${urlget}`
 
 	let dataSave
 	
-
-/**	const newOrder = JSON.stringify({
-		good: "Микроволновка",
-		price: 10000,
-		clientName: "Дмитрий",
-		managerName: "Анастасия",
-		paymentStatus: 0,
-		requestStatus: 0
-	}) */
-
 	fetch(url + address + key, {
 		method: 'GET',
 		// body: newOrder
 	})
 		.then(answer => answer.json())
 		.then(data => {
-//			const rootDir = document.getElementsByClassName('card-body')
-				const rootDir = document.getElementById('listViewer')
-console.log(data)
-	dataSave = data
-	item = data
+
+		const rootDir = document.getElementById('listViewer')
+	 // console.log(data)
+		dataSave = data
+		item = data
 
 
 //			for (const item of data) {
 
-	console.log(item)
-				const tbodyElement = document.createElement('div')
+	//console.log(item)
+		const tbodyElement = document.createElement('div')
 
-
-				let price = item.price.toString()
+		let price = item.price.toString()
 		price = price.slice(0,-2) + '.' + price.slice(-2)
+
 				tbodyElement.innerHTML = trElementTemplate
 					.replace('%ID%', item.id)
 					.replace('%GOOD%', item.good)
@@ -143,37 +133,40 @@ console.log(data)
 		})
 
 		document.querySelector('button').addEventListener('click', function() {
-console.log(dataSave)
-const input = document.forms.firstForm.elements
-console.log(input)
+	//		console.log(dataSave)
+			const input = document.forms.firstForm.elements
+	//		console.log(input)
 
-    let priceCop = input[1].value.replace('.', '')	
+		    let priceCop = input[1].value.replace('.', '')	
+		    if(priceCop === input[1].value) {
+		    	priceCop +='00'
+		    }
 
-	const editOrder = JSON.stringify({
-		id: dataSave.id,
-		good: dataSave.good,
-		price: priceCop,
-		clientName: input[0].value,
-		managerName: dataSave.managerName,
-		requestStatus: input[2].value,
-		paymentStatus: input[3].value
-	
-	}) 
+			const editOrder = JSON.stringify({
+				id: dataSave.id,
+				good: dataSave.good,
+				price: priceCop,
+				clientName: input[0].value,
+				managerName: dataSave.managerName,
+				requestStatus: input[2].value,
+				paymentStatus: input[3].value
+			
+			}) 
 
-	console.log(editOrder)
+		//	console.log(editOrder)
 
-	const address = `/order/${urlget}`
-	console.log(address)
-		fetch(url + address + key, {
-		method: 'PUT',
-		body: editOrder
-	})
-		.then(answer => answer.json())
-		.then(data => {
-//			const rootDir = document.getElementsByClassName('card-body')
-			console.log(data)
+			const address = `/order/${urlget}`
+		//	console.log(address)
+				fetch(url + address + key, {
+				method: 'PUT',
+				body: editOrder
+				})
+				.then(answer => answer.json())
+				.then(data => {
 
-		})
+		//			console.log(data)
+
+				})
 
 		})
 }
