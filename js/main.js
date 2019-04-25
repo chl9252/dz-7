@@ -1,17 +1,17 @@
  const trElementTemplate = `
 <tr class="bid-row">
 	<td scope="row">
-		<a href="view-and-edit.html">Заявка №%ID%</a>
+		<a href="view-and-edit.html?id=%ID%">Заявка №%ID%</a>
 	</td>
 	<td>%CLIENT_NAME%</td>
 	<td>
 		<span class="badge badge-light badge-lg">
-			<span class="icon">%LOGO%</span> %GOOD%
+			%GOOD%
 		</span>
 	</td>
 	<td>%PRICE%</td>
-	<td><span class="badge badge-primary">Новая</span></td>
-	<td><span class="badge badge-secondary">Нет оплаты</span></td>
+	<td><span class="badge badge-primary">%REQUESTSTATUS%</span></td>
+	<td><span class="badge badge-secondary">%PAYMENTSTATUS%</span></td>
 </tr>` 
 
 main() 
@@ -38,40 +38,66 @@ function main () {
 		.then(data => {
 			const rootDir = document.getElementById('listViewer')
 console.log({data})
-		let logo = ''
+
 			for (const item of data) {
 				const tbodyElement = document.createElement('tbody')
-	switch(item.good) {
-		case "Автомобиль":
-		logo = '🚗 '
+
+		let paymentStatusText = ''
+
+	switch(item.paymentStatus) {
+		case "1":
+		paymentStatusText = 'Не оплачено'
 		break
-				case "Трактор":
-		logo = '🚜 '
+		case "3":
+		paymentStatusText = 'Частичная оплата'
 		break
-				case "Самолет":
-		logo = '✈ '
+		case "4":
+		paymentStatusText = 'Полная оплата'
 		break
-				case "Парусник":
-		logo = '⛵ '
+		case "5":
+		paymentStatusText = 'Возврат'
 		break
-				case "Поезд":
-		logo = '🚅 '
-		break
-				case "Самокат":
-		logo = '🛴 '
-		break
+
 		default:
-		logo = ''
+		paymentStatusText = 'Не оплачено'
 
 	}
+	console.log(paymentStatusText)
+
+		let requestStatusText = ''
+		switch(item.requestStatus) {
+		case "1":
+		requestStatusText = 'Новая'
+		break
+		case "2":
+		requestStatusText = 'В работе'
+		break
+		case "3":
+		requestStatusText = 'Ожидается оплата'
+		break
+		case "4":
+		requestStatusText = 'Завершена'
+		break
+		case "5":
+		requestStatusText = 'Отказ'
+		break
+
+		default:
+		requestStatusText = 'Новая'
+
+	}
+	console.log(requestStatusText)
+
 	    let price = item.price.toString()
 		price = price.slice(0,-2) + '.' + price.slice(-2)
 				tbodyElement.innerHTML = trElementTemplate
 					.replace('%ID%', item.id)
-					.replace('%LOGO%', logo)
+					.replace('%ID%', item.id)
 					.replace('%GOOD%', item.good)
 					.replace('%PRICE%', price)
 					.replace('%CLIENT_NAME%', item.clientName)
+					.replace('%REQUESTSTATUS%', requestStatusText)
+					.replace('%PAYMENTSTATUS%', paymentStatusText)
 
 				rootDir.append(tbodyElement.firstElementChild)
 			}
