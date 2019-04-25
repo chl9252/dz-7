@@ -94,7 +94,7 @@ function main () {
 	
 
 	    let price = item.price.toString()
-		price = price.slice(0,-2) + '.' + price.slice(-2)
+		price = price.slice(0,-2) + '.' + price.slice(-2) + ' руб.'
 				tbodyElement.innerHTML = trElementTemplate
 					.replace('%ID%', item.id)
 					.replace('%ID%', item.id)
