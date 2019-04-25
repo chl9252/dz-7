@@ -21,35 +21,69 @@ function main () {
 	const key = '?key=adjf989f89981045789sdf'
 	const address = '/orders'
 
-	const newOrder = JSON.stringify({
-		good: "Микроволновка",
-		price: 10000,
-		clientName: "Дмитрий",
-		managerName: "Анастасия",
-		paymentStatus: 0,
-		requestStatus: 0
-	})
+		document.querySelector('button').addEventListener('click', function() {
 
-	fetch(url + address + key, {
-		method: 'GET',
-		// body: newOrder
+	const input = document.forms.firstForm.elements
+console.log(input)
+
+    let priceCop = input[2].value.replace('.', '')	
+
+	let goodText = ''
+	switch(input[1].value) {
+		case "1":
+		goodText = 'Автомобиль'
+		break
+		case "2":
+		goodText = 'Автобус'
+		break
+		case "3":
+		goodText = 'Трактор'
+		break
+		case "4":
+		goodText = 'Самолет'
+		break
+		case "5":
+		goodText = 'Парусник'
+		break
+		case "6":
+		goodText = 'Поезд'
+		break
+		case "7":
+		goodText = 'Самокат'
+		break
+
+		default:
+		goodText = 'Неизвестно'
+
+	}
+
+	const newOrder = JSON.stringify({
+		good: goodText,
+		price: priceCop,
+		clientName: input[0].value,
+		requestStatus: input[3].value,
+		paymentStatus: input[4].value
+	
+	}) 
+
+	console.log(newOrder)
+
+	const address = `/order`
+	console.log(address)
+		fetch(url + address + key, {
+		method: 'POST',
+		body: newOrder
 	})
 		.then(answer => answer.json())
 		.then(data => {
-			const rootDir = document.getElementById('listViewer')
+//			const rootDir = document.getElementsByClassName('card-body')
+			console.log(data)
 
-			for (const item of data) {
-				const tbodyElement = document.createElement('tbody')
-
-				tbodyElement.innerHTML = trElementTemplate
-					.replace('%ID%', item.id)
-					.replace('%GOOD%', item.good)
-					.replace('%PRICE%', item.price)
-					.replace('%CLIENT_NAME%', item.clientName)
-
-				rootDir.append(tbodyElement.firstElementChild)
-			}
 		})
+
+		})
+
+
 }
 
 // Получить все заказы

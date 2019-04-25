@@ -62,7 +62,6 @@ console.log({data})
 		paymentStatusText = 'Не оплачено'
 
 	}
-	console.log(paymentStatusText)
 
 		let requestStatusText = ''
 		switch(item.requestStatus) {
@@ -86,7 +85,8 @@ console.log({data})
 		requestStatusText = 'Новая'
 
 	}
-	console.log(requestStatusText)
+
+	
 
 	    let price = item.price.toString()
 		price = price.slice(0,-2) + '.' + price.slice(-2)

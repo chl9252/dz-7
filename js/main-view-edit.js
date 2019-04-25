@@ -134,7 +134,7 @@ console.log(data)
 					.replace('%PRICE%', price)
 					.replace('%CLIENT_NAME%', item.clientName)
 					.replace(`%Z${item.requestStatus}%`, 'selected')
-					.replace(`%Z${item.paymentStatus}%`, 'selected')
+					.replace(`%O${item.paymentStatus}%`, 'selected')
 
 //					console.log(tbodyElement.innerHTML)
 //rootDir.append(tbodyElement)
@@ -147,11 +147,12 @@ console.log(dataSave)
 const input = document.forms.firstForm.elements
 console.log(input)
 
+    let priceCop = input[1].value.replace('.', '')	
 
 	const editOrder = JSON.stringify({
 		id: dataSave.id,
 		good: dataSave.good,
-		price: input[1].value,
+		price: priceCop,
 		clientName: input[0].value,
 		managerName: dataSave.managerName,
 		requestStatus: input[2].value,
