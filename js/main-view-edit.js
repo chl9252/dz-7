@@ -1,19 +1,3 @@
-/**const trElementTemplate = `
-<tr class="bid-row">
-	<td scope="row">
-		<a href="view-and-edit.html">Заявка №%ID%</a>
-	</td>
-	<td>%CLIENT_NAME%</td>
-	<td>
-		<span class="badge badge-light badge-lg">
-			<span class="icon">🛴</span> %GOOD%
-		</span>
-	</td>
-	<td>%PRICE%</td>
-	<td><span class="badge badge-primary">Новая</span></td>
-	<td><span class="badge badge-secondary">Нет оплаты</span></td>
-</tr>` */
-
 
 const trElementTemplate = `
 	<div class="row mb-3">
@@ -97,12 +81,7 @@ function main () {
 
 	let dataSave
 	
-	fetch(url + address + key, {
-		method: 'GET',
-		// body: newOrder
-	})
-		.then(answer => answer.json())
-		.then(data => {
+dbRequest.getOrderById(address, data => {
 
 		const rootDir = document.getElementById('listViewer')
 	 // console.log(data)
@@ -131,8 +110,10 @@ function main () {
 				rootDir.appendChild(tbodyElement)
 //			}
 		})
-
-		document.querySelector('button').addEventListener('click', function() {
+		const buttons = document.querySelectorAll('button')
+	//	console.log(buttons)
+		buttons[0].addEventListener('click', function(event) {
+			event.stopPropagation()
 	//		console.log(dataSave)
 			const input = document.forms.firstForm.elements
 	//		console.log(input)
@@ -142,7 +123,7 @@ function main () {
 		    	priceCop +='00'
 		    }
 
-			const editOrder = JSON.stringify({
+			const editOrder = {
 				id: dataSave.id,
 				good: dataSave.good,
 				price: priceCop,
@@ -151,23 +132,27 @@ function main () {
 				requestStatus: input[2].value,
 				paymentStatus: input[3].value
 			
-			}) 
+			} 
 
 		//	console.log(editOrder)
 
 			const address = `/order/${urlget}`
 		//	console.log(address)
-				fetch(url + address + key, {
-				method: 'PUT',
-				body: editOrder
-				})
-				.then(answer => answer.json())
-				.then(data => {
+			dbRequest.editOrderById(address, editOrder, data => {
 
 		//			console.log(data)
-
+			location.replace('index.html')
 				})
 
+		})
+
+		buttons[1].addEventListener('click', function(event) {
+			event.stopPropagation()
+			dbRequest.deleteOrderById(address, () => {
+
+		//			console.log(data)
+			location.replace('index.html')
+				})
 		})
 }
 
