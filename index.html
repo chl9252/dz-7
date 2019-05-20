@@ -17,7 +17,6 @@
  
 <body>
 	
-	<!-- container-fluid -->
 	<div class="container-fluid">
 
 		<!-- Шапка -->
@@ -36,7 +35,7 @@
 							<label class="input-group-text" for="inputGroupSelect01">Статус заявки</label>
 						</div>
 						<select class="custom-select" id="inputGroupSelect01">
-							<option selected>Выберите...</option>
+							<option value="0" selected>Выберите...</option>
 							<option value="1">Новая</option>
 							<option value="2">В работе</option>
 							<option value="3">Ожидается оплата</option>
@@ -51,7 +50,7 @@
 							<label class="input-group-text" for="inputGroupSelect02">Статус оплаты</label>
 						</div>
 						<select class="custom-select" id="inputGroupSelect02">
-							<option selected>Выберите...</option>
+							<option value="0" selected>Выберите...</option>
 							<option value="1">Не оплачено</option>
 							<option value="3">Частичная оплата</option>
 							<option value="4">Полная оплата</option>
@@ -63,19 +62,12 @@
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<label class="input-group-text" for="inputGroupSelect03">Продукт</label>
-							<input type="text" class="form-control" id="inputGroupSelect03" value="Введите">
-
 							
 						</div>
-	<!--		<input type="text" class="form-control" id="inputGroupSelect03" value="">			
-	<select class="custom-select" id="inputGroupSelect03">
-							<option selected>Выберите...</option>
-							<option value="1">Не оплачено</option>
-							<option value="2">Ожидается оплата</option>
-							<option value="3">Частичная оплата</option>
-							<option value="4">Полная оплата</option>
-							<option value="5">Возврат</option>
-						</select> -->
+						<select class="custom-select" id="inputGroupSelect03" data-sortbar-goods>
+<!--							<option value='0' selected>Выберите...</option>  -->
+						</select>
+
 					</div>
 				</div>
 			</div>
@@ -94,20 +86,7 @@
 		    </tr>
 		  </thead>
 			<tbody id='listViewer'>
-<!--				<tr class="bid-row">
-					<td scope="row">
-						<a href="view-and-edit.html">Заявка №1</a>
-					</td>
-					<td>Юрий Васильев</td>
-					<td>
-						<span class="badge badge-light badge-lg">
-							<span class="icon">🛴</span> Самокат
-						</span>
-					</td>
-					<td>8000.00 руб.</td>
-					<td><span class="badge badge-primary">Новая</span></td>
-				  <td><span class="badge badge-secondary">Нет оплаты</span></td>
-				</tr> -->
+
 			</tbody>
 		</table>
 	</div>
@@ -115,10 +94,7 @@
 	<footer class="container-fluid pt-4 my-md-5 pt-2 border-top text-left">
 		<p><a class="btn btn-success" href="hints.html" >Подсказки</a></p>
 	</footer>
-	<!-- // container-fluid -->
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="libs/jquery/jquery-3.3.1.min.js"></script>
 	<script src="libs/popper/popper.min.js"></script>
 	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
